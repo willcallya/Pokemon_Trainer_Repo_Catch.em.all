@@ -12,7 +12,7 @@ import requests
 import pandas as pd
 import dash
 from dash import dcc, html, dash_table
-from dash.dependencies import Input, Output, State
+from dash.dependencies import Input, Output, State #Imports dependencies / callbacks input = clicks, outpit = updates the table, state = constant, see line 207
 
 # Constants for PokeAPI endpoints
 POKEAPI_URL = "https://pokeapi.co/api/v2/pokemon/"
@@ -26,18 +26,18 @@ def load_pokemon_names():
         list of str: Alphabetically sorted list of Pokémon names.
     """
     try:
-        response = requests.get("https://pokeapi.co/api/v2/pokemon?limit=2000")
+        response = requests.get("https://pokeapi.co/api/v2/pokemon?limit=2000") #initial load of 1000 names we could add more if needed
         if response.status_code == 200:
             data = response.json()
             results = data.get("results", [])
             # Return sorted list of Pokémon names
-            return sorted([p["name"] for p in results])
-        print(f"Error retrieving Pokémon list from API: {response.text}")
+            return sorted([p["name"] for p in results]) #Sort alphabetically
+        print(f"Error retrieving Pokémon list from API: {response.text}") #Error handling, prints non 200 reponse
         return []
     except Exception as exc:
         print(f"Exception encountered while loading Pokémon names: {exc}")
         return []
-
+#Exception as exc handles the unexpected errors when making api requests, does not crash app or terminal if 500 error or other errors
 def fetch_pokemon_location(pokemon_id):
     """
     Retrieve location information for a Pokémon using its ID.
@@ -49,7 +49,7 @@ def fetch_pokemon_location(pokemon_id):
         str: A comma-separated string of location areas or an error message.
     """
     try:
-        response = requests.get(ENCOUNTERS_URL.format(pokemon_id))
+        response = requests.get(ENCOUNTERS_URL.format(pokemon_id)) #calls encounters (location) URL and appends pokemon ID, no other required params, location join, self joins locations
         if response.status_code == 200:
             locations = response.json()
             if locations:

@@ -12,7 +12,7 @@ import requests
 import pandas as pd
 import dash
 from dash import dcc, html, dash_table
-from dash.dependencies import Input, Output, State
+from dash.dependencies import Input, Output, State    #Imports dependencies / callbacks input = clicks, outpit = updates the table, state = constant
 
 # Constants for PokeAPI endpoints
 POKEAPI_URL = "https://pokeapi.co/api/v2/pokemon/"
